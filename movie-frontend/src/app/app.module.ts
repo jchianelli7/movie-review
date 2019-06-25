@@ -1,16 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './home/home.component';
+import {MovieListComponent} from './movie-list/movie-list.component';
+import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { MovieListComponent } from './movie-list/movie-list.component';
-import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'movies', component: MovieListComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: 'movies', component: MovieListComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -21,11 +22,16 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+
+    // Keep this last, josh. If i spend one more minute debugging and this is the problem, i'm going to be pissed.
+    AppRoutingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
