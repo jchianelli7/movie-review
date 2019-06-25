@@ -29,7 +29,7 @@ class MovieRepository extends ServiceEntityRepository
         return [
             'id' => (int)$movie->getId(),
             'title' => (string)$movie->getTitle(),
-            'count' => (int)$movie->getCount()
+            'rating' => $movie->getRating()
         ];
     }
 
