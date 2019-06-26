@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+
 class MovieController extends ApiController
 {
     /**
@@ -47,17 +48,23 @@ class MovieController extends ApiController
     }
 
     /**
-     * @Route("/movies/{id}/rating", methods="POST")
+     * @Route("/movies/rating", methods="POST")
      */
-    public function increaseRating($id, EntityManagerInterface $em, MovieRepository $movieRepository)
+    public function increaseRating(Request $request, EntityManagerInterface $em, MovieRepository $movieRepository)
     {
-        $movie = $movieRepository->find($id);
+        // validate the id
+        if (! $request->get('id')) {
+            return $this->respondValidationError('Please provide a title!');
+        }
+
+        // validate the movie
+        $movie = $movieRepository->find($request->get('id'));
 
         if (! $movie) {
             return $this->respondNotFound();
         }
 
-        $movie->setRating($movie->getRating() + 1);
+        $movie->setRating($request->get('rating'));
         $em->persist($movie);
         $em->flush();
 

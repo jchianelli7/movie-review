@@ -1,5 +1,5 @@
 <div>
-  <span class="help is-info"  *ngIf="isLoading">Loading...</span>
+  <span class="help is-info" *ngIf="isLoading">Loading...</span>
   <table class="table" *ngIf="!isLoading">
     <thead>
     <tr>
@@ -16,7 +16,10 @@
       <td>{{ movie.rating }}</td>
       <td>
         <form>
-          <button type="button" class="button is-primary" [class.is-loading]="isUpdating(movie.id)" (click)="increaseRating(movie.id, movie.rating+1)">Increase Rating</button>
+          <button type="button" class="button is-primary" [class.is-loading]="isUpdating(movie.id)"
+                  (click)="increaseRating(movie.id, movie.rating)">+</button>
+          <button type="button" class="button is-primary" style="left: 5px;" [class.is-loading]="isUpdating(movie.id)"
+                  (click)="decreaseRating(movie.id, movie.rating)">-</button>
         </form>
       </td>
     </tr>

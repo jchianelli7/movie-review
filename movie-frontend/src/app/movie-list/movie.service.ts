@@ -13,6 +13,7 @@ export interface Movie {
 
 const routes = {
   movies: () => `http://localhost:8000/movies/`,
+  rating: () => 'http://localhost:8000/movies/rating'
 };
 
 export interface MovieContext {
@@ -52,10 +53,11 @@ export class MovieService {
       );
   }
 
-  increaseRating(context: MovieContext) {
+  changeRating(context: MovieContext) {
     return this.httpClient
-      .post(routes.movies() + context.id + '/rating',
-        'rating=' + context.rating,
+      .post(routes.rating(),
+        'id=' + context.id +
+        '&rating=' + context.rating,
         {
           headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }
