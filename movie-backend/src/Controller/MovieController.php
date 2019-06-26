@@ -47,9 +47,9 @@ class MovieController extends ApiController
     }
 
     /**
-     * @Route("/movies/{id}/count", methods="POST")
+     * @Route("/movies/{id}/rating", methods="POST")
      */
-    public function increaseCount($id, EntityManagerInterface $em, MovieRepository $movieRepository)
+    public function increaseRating($id, EntityManagerInterface $em, MovieRepository $movieRepository)
     {
         $movie = $movieRepository->find($id);
 
@@ -57,12 +57,12 @@ class MovieController extends ApiController
             return $this->respondNotFound();
         }
 
-        $movie->setCount($movie->getCount() + 1);
+        $movie->setRating($movie->getRating() + 1);
         $em->persist($movie);
         $em->flush();
 
         return $this->respond([
-            'count' => $movie->getCount()
+            'rating' => $movie->getRating()
         ]);
     }
 
