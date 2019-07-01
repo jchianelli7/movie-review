@@ -26,21 +26,27 @@ class MovieController extends ApiController
      */
     public function create(Request $request, MovieRepository $movieRepository, EntityManagerInterface $em)
     {
-        $request = $this->transformJsonBody($request);
-
-        if (! $request) {
-            return $this->respondValidationError('Please provide a valid request!');
-        }
-
         // validate the title
         if (! $request->get('title')) {
             return $this->respondValidationError('Please provide a title!');
         }
 
+        // validate the rating
+        if (! $request->get('rating')) {
+            return $this->respondValidationError('Please provide a rating!');
+        }
+
+        // validate the rating
+        if (! is_numeric($request->get('rating'))) {
+            return $this->respondValidationError('Error, ratings must be numeric');
+        }
+
+
+
         // persist the new movie
         $movie = new Movie;
         $movie->setTitle($request->get('title'));
-        $movie->setCount(0);
+        $movie->setRating($request->get('rating'));
         $em->persist($movie);
         $em->flush();
 
@@ -54,7 +60,7 @@ class MovieController extends ApiController
     {
         // validate the id
         if (! $request->get('id')) {
-            return $this->respondValidationError('Please provide a title!');
+            return $this->respondValidationError('Movie not found');
         }
 
         // validate the movie

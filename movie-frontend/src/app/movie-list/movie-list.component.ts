@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Movie, MovieService} from './movie.service';
 
 @Component({
@@ -10,10 +10,15 @@ import {Movie, MovieService} from './movie.service';
 export class MovieListComponent implements OnInit {
 
   movies: Movie[];
-  errorMessage: string;
+  errorMessage: string = '';
   isLoading: boolean = true;
+  isValid: boolean;
+
+  @Output()
+  movieAdded: EventEmitter<Movie> = new EventEmitter<Movie>();
 
   constructor(private movieService: MovieService) {
+    this.isValid = null;
   }
 
   ngOnInit() {
@@ -78,4 +83,31 @@ export class MovieListComponent implements OnInit {
       );
   }
 
+  addMovie(movieTitle, movieRating) {
+    this.isLoading = true;
+    this.movieService
+      .addMovie({
+        title: movieTitle,
+        rating: Math.round(movieRating * 100) / 100
+      })
+      .subscribe(
+        movie => {
+          // @ts-ignore
+          movie === 'Error, could not add movie' ? this.isValid = false : this.isValid = true;
+          this.isLoading = false;
+          this.movieAdded.emit(movie);
+          if (this.isValid) {
+            this.appendMovie(movie);
+          }
+        },
+        error => {
+          this.errorMessage = <any>error;
+          this.isLoading = false;
+        }
+      );
+  }
+
+  appendMovie(movie: Movie) {
+    this.movies.push(movie);
+  }
 }
