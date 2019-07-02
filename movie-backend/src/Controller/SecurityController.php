@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 
 class SecurityController extends AbstractController
@@ -12,14 +18,27 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(Request $request)
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $user = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneBy(['email' => $email]);
+        if (!$user) {
+            return new JsonResponse(['error' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
+        }
+        $isValid = $this->get('security.password_encoder')
+            ->isPasswordValid($user, $password);
+        if (!$isValid) {
+            return new JsonResponse(['error' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
+        }
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+        $this->get('session')->set('_security_main', serialize($token));
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+        return new JsonResponse(['User logged in'], Response::HTTP_OK);
     }
 
     /**
@@ -27,7 +46,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        // controller can be blank: it will never be executed!
         throw new \Exception('Logout successful');
     }
 }
