@@ -25,6 +25,8 @@ class UserFixtures extends Fixture
             $user,
             'admin'
         ));
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+
         $manager->persist($user);
         $manager->flush();
     }

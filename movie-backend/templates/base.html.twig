@@ -7,6 +7,9 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+        {#{% if is_granted('ROLE_ADMIN') %}#}
+            {#<a href="...">Delete</a>#}
+        {#{% endif %}#}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
