@@ -1,14 +1,44 @@
 <!doctype html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>MovieFrontend</title>
+  <title>Movie Review</title>
+  <meta name="description" content="Web Application for Reviewing Movies">
+  <meta name="keywords" content="">
+  <meta name="author" content="Josh Chianelli">
+  <link rel="profile" href="index.html#">
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!--Google Font-->
+  <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500%7CNunito:300,400,600'/>
+  <!-- Mobile specific meta -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone-no">
+
 </head>
 <body>
-  <app-root></app-root>
+<!--preloading-->
+<div id="preloader">
+  <div id="status">
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<app-root></app-root>
+
+<script type="text/javascript" src="assets/scripts/jquery.js"></script>
+<script type="text/javascript" src="assets/scripts/plugins.js"></script>
+<script type="text/javascript" src="assets/scripts/plugins2.js"></script>
+<script type="text/javascript" src="assets/scripts/custom.js"></script>
 </body>
 </html>

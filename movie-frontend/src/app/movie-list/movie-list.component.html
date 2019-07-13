@@ -1,45 +1,47 @@
-<div>
-  <span class="help is-info" *ngIf="isLoading">Loading...</span>
-  <table class="table" *ngIf="!isLoading">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Rating</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let movie of movies">
-      <td>{{ movie.id }}</td>
-      <td>{{ movie.title }}</td>
-      <td>{{ movie.rating }}</td>
-      <td>
-        <form>
-          <button type="button" class="button is-primary" [class.is-loading]="isUpdating(movie.id)"
-                  (click)="increaseRating(movie.id, movie.rating)">+
-          </button>
-          <button type="button" class="button is-primary" style="left: 5px;" [class.is-loading]="isUpdating(movie.id)"
-                  (click)="decreaseRating(movie.id, movie.rating)">-
-          </button>
-        </form>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input class="input" #movieTitle (keydown)="errorMessage = ''"></td>
-      <td><input class="input" #movieRating (keydown)="errorMessage = ''"></td>
-      <td>
-        <button type="button" class="button is-primary" [class.is-loading]="isLoading"
-                (click)="addMovie(movieTitle.value, movieRating.value)">Add Movie
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <div *ngIf="isValid == false" class="notification error closeable">
-    <p><span>Error!</span> Please provide valid input.</p>
-    <a class="close" href="#"></a>
-  </div>
-  <span class="help is-danger">{{ errorMessage }}</span>
-</div>
+<!--<div>-->
+  <!--<span class="help is-info" *ngIf="isLoading">Loading...</span>-->
+  <!--<table class="table" *ngIf="!isLoading">-->
+    <!--<thead>-->
+    <!--<tr>-->
+      <!--<th>ID</th>-->
+      <!--<th>Title</th>-->
+      <!--<th>Rating</th>-->
+      <!--<th>Actions</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr *ngFor="let movie of movies">-->
+      <!--<td>{{ movie.id }}</td>-->
+      <!--<td>{{ movie.title }}</td>-->
+      <!--<td>{{ movie.rating }}</td>-->
+      <!--<td>-->
+        <!--<form>-->
+          <!--<button type="button" class="button is-primary" [class.is-loading]="isUpdating(movie.id)"-->
+                  <!--(click)="increaseRating(movie.id, movie.rating)">+-->
+          <!--</button>-->
+          <!--<button type="button" class="button is-primary" style="left: 5px;" [class.is-loading]="isUpdating(movie.id)"-->
+                  <!--(click)="decreaseRating(movie.id, movie.rating)">- -->
+          <!--</button>-->
+        <!--</form>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+      <!--<td></td>-->
+      <!--<td><input class="input" #movieTitle (keydown)="errorMessage = ''"></td>-->
+      <!--<td><input class="input" #movieRating (keydown)="errorMessage = ''"></td>-->
+      <!--<td>-->
+        <!--<button type="button" class="button is-primary" [class.is-loading]="isLoading"-->
+                <!--(click)="addMovie(movieTitle.value, movieRating.value)">Add Movie-->
+        <!--</button>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+  <!--</table>-->
+  <!--<div *ngIf="isValid == false" class="notification error closeable">-->
+    <!--<p><span>Error!</span> Please provide valid input.</p>-->
+    <!--<a class="close" href="#"></a>-->
+  <!--</div>-->
+  <!--<span class="help is-danger">{{ errorMessage }}</span>-->
+<!--</div>-->
+
+
