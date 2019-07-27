@@ -3,30 +3,63 @@
   <div class="login-content">
     <a href="index.html#" class="close">x</a>
     <h3>Login</h3>
-    <form method="post" action="login.php">
-      <div class="row">
-        <label for="username">
-          Username:
-          <input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
-        </label>
-      </div>
+    <!--<form method="post" action="login.php">-->
+      <!--<div class="row">-->
+        <!--<label for="username">-->
+          <!--Username:-->
+          <!--<input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />-->
+        <!--</label>-->
+      <!--</div>-->
 
-      <div class="row">
-        <label for="password">
-          Password:
-          <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-        </label>
+      <!--<div class="row">-->
+        <!--<label for="password">-->
+          <!--Password:-->
+          <!--<input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />-->
+        <!--</label>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+        <!--<div class="remember">-->
+          <!--<div>-->
+            <!--<input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>-->
+          <!--</div>-->
+          <!--<a href="index.html#">Forget password ?</a>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+        <!--<button type="submit">Login</button>-->
+      <!--</div>-->
+    <!--</form>-->
+    <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+      <p class="form-row form-row-wide">
+        <label for="email">Email Address: <span class="required">*</span></label>
+        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="loginEmail" type="text"
+               class="input-text" name="email" id="email" value=""/>
+      </p>
+
+      <p class="form-row form-row-wide">
+        <label for="password">Password: <span class="required">*</span></label>
+        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="loginPassword" class="input-text"
+               type="password" name="password" id="password"/>
+      </p>
+
+      <p class="form-row">
+        <input type="submit" class="button" name="login" value="Login"/>
+
+        <label for="rememberme" class="rememberme">
+          <input name="rememberme" type="checkbox" id="rememberme" value="forever"/> Remember
+          Me</label>
+      </p>
+
+      <p class="lost_password">
+        <a href="#">Lost Your Password?</a>
+      </p>
+      <div *ngIf="isValid == false" class="notification error closeable">
+        <p><span>Error!</span> Please provide valid credentials.</p>
+        <a class="close" href="#"></a>
       </div>
-      <div class="row">
-        <div class="remember">
-          <div>
-            <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
-          </div>
-          <a href="index.html#">Forget password ?</a>
-        </div>
-      </div>
-      <div class="row">
-        <button type="submit">Login</button>
+      <div *ngIf="isValid == true" class="notification success closeable">
+        <p><span>Success!</span> {{loginEmail}} logged in!</p>
+        <a class="close" href="#"></a>
       </div>
     </form>
     <div class="row">

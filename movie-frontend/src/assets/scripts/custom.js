@@ -378,7 +378,7 @@ $(function () {
   //== js for video lightbox
   var fancyboxmedia = $('.fancybox-media');
   fancyboxmedia.fancybox({
-    openEffect: 'float',
+    openEffect: 'floatlo',
     closeEffect: 'none',
     helpers: {
       media: {},

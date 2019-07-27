@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -30,6 +31,9 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+
 
     // Keep this last, josh. If i spend one more minute debugging and this is the problem, i'm going to be pissed.
     AppRoutingModule,
